@@ -2,7 +2,7 @@ const Task = require('../models/task.js')
 const User = require('../models/user.js')
 
 const createTask = async (req, res) => {
-  const newTask = await (await Task.create(req.body)).populate("user")
+  const newTask = await Task.create(req.body)
   const user = await User.findById(req.body.user)
   user.tasks.push(newTask._id)
   user.save()
@@ -15,7 +15,7 @@ const findAllTasks = async (req, res) => {
 }
 
 const findTaskById = async (req, res) => {
-  const task = await Task.findById(req.params.id)
+  const task = await Task.findById(req.params.id).populate('user')
   res.send(task)
 }
 

@@ -5,6 +5,12 @@ const createUser = async (req, res) => {
   res.send(newUser)
 }
 
+const getUserById = async (req, res) => {
+  const user = await User.findById(req.params.id).populate('tasks')
+  res.send(user)
+}
+
 module.exports = {
-  createUser
+  createUser,
+  getUserById
 }
